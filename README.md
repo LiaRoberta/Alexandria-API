@@ -8,10 +8,14 @@ A arquitetura foi modelada de forma relacional em torno de quatro entidades prin
 
 | Entidade | Caminho | Descrição |
 | --- | --- | --- |
-| Livros | /api/v1/lib/acervo | Gerencia o catálogo da biblioteca, incluindo metadados (ISBN, autor), controle de exemplares, status de conservação e estatísticas de uso. |
-| Empréstimos | /api/v1/lib/emprestimos | Registra as transações temporais, unindo livros, usuários (leitores) e os funcionários responsáveis pela operação. |
-| Usuários | /api/v1/lib/users/usuarios | Controla os leitores cadastrados e gerencia regras de negócio, como o limite de livros simultâneos disponíveis. |
-| Funcionários | /api/v1/lib/users/funcionarios | Mantém os dados da equipe administrativa e operadores do sistema. |
+| Livros | `/api/v1/lib/acervo` | Gerencia o catálogo da biblioteca, incluindo metadados (ISBN, autor), controle de exemplares, status de conservação e estatísticas de uso. |
+| Empréstimos | `/api/v1/lib/emprestimos` | Registra as transações temporais, unindo livros, usuários (leitores) e os funcionários responsáveis pela operação. |
+| Usuários | `/api/v1/lib/users/usuarios` | Controla os leitores cadastrados e gerencia regras de negócio, como o limite de livros simultâneos disponíveis. |
+| Funcionários | `/api/v1/lib/users/funcionarios` | Registra e armazena os dados da equipe administrativa e operadores do sistema. |
 
 ### Equipe Envolvida: 
-<pre>Guilherme Assunção Barboza — RA: 2840482423014 / GitHub: guiassuno<br>Julia Roberta da Silva — RA: 2840482423020 / GitHub: liaroberta<br><br>FATEC Ribeirão Preto</pre>
+<pre>
+  Guilherme Assunção Barboza — RA: 2840482423014 / GitHub: <a href="https://github.com/GuiAssuno">GuiAssuno</a>
+  Julia Roberta da Silva — RA: 2840482423020 / GitHub: <a href="https://github.com/LiaRoberta">LiaRoberta</a><br>
+  FATEC Ribeirão Preto
+</pre>
