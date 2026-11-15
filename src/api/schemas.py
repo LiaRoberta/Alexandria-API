@@ -8,7 +8,7 @@ padronizado de erros no padrão RFC 9457 (Problem Details).
 from datetime import date, datetime
 from enum import Enum
 from typing import Optional
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field
 
 
 # -----------------------------------------------------------------------------
@@ -149,13 +149,16 @@ class Livro(AlexandriaBaseSchema):
     """Entidade completa de livro cadastrado no acervo."""
     livro_id: int = Field(
         ...,
-        alias="livro-id",
+        validation_alias=AliasChoices("livro-id", "livro_id", "livroId", "id"),
+        serialization_alias="livro-id",
         ge=1,
         le=9999,
         description="Identificador único do livro",
     )
     ISBN: str = Field(
         ...,
+        validation_alias=AliasChoices("ISBN", "isbn"),
+        serialization_alias="ISBN",
         pattern=r"^[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}$",
         description="Número de ISBN formatado com hífens",
     )
@@ -163,7 +166,8 @@ class Livro(AlexandriaBaseSchema):
     autor: Optional[str] = Field(default=None, min_length=2, max_length=100, description="Autor do livro")
     num_paginas: Optional[int] = Field(
         default=None,
-        alias="num-paginas",
+        validation_alias=AliasChoices("num-paginas", "num_paginas", "numPaginas"),
+        serialization_alias="num-paginas",
         ge=1,
         le=5000,
         description="Número total de páginas",
@@ -173,11 +177,17 @@ class Livro(AlexandriaBaseSchema):
     categoria: CategoriaLivro = Field(..., description="Categoria literária do livro")
     qtd_emprestimos: int = Field(
         default=0,
-        alias="qtd-emprestimos",
+        validation_alias=AliasChoices("qtd-emprestimos", "qtd_emprestimos", "qtdEmprestimos"),
+        serialization_alias="qtd-emprestimos",
         ge=0,
         description="Quantidade acumulada de empréstimos",
     )
-    dt_cadastro: datetime = Field(..., alias="dt-cadastro", description="Data/hora UTC de cadastro")
+    dt_cadastro: datetime = Field(
+        ...,
+        validation_alias=AliasChoices("dt-cadastro", "dt_cadastro", "dtCadastro"),
+        serialization_alias="dt-cadastro",
+        description="Data/hora UTC de cadastro",
+    )
     status: StatusLivro = Field(..., description="Estado de conservação do livro")
     exemplar: bool = Field(
         default=False,
@@ -189,12 +199,20 @@ class CreateLivroDTO(AlexandriaBaseSchema):
     """Payload para cadastramento de um novo livro no acervo."""
     ISBN: str = Field(
         ...,
+        validation_alias=AliasChoices("ISBN", "isbn"),
+        serialization_alias="ISBN",
         pattern=r"^[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}$",
         description="Número de ISBN formatado",
     )
     titulo: str = Field(..., min_length=1, max_length=200, description="Título do livro")
     autor: Optional[str] = Field(default=None, min_length=2, max_length=100)
-    num_paginas: Optional[int] = Field(default=None, alias="num-paginas", ge=1, le=5000)
+    num_paginas: Optional[int] = Field(
+        default=None,
+        validation_alias=AliasChoices("num-paginas", "num_paginas", "numPaginas"),
+        serialization_alias="num-paginas",
+        ge=1,
+        le=5000,
+    )
     editora: Optional[str] = Field(default=None, min_length=2, max_length=100)
     publicacao: Optional[int] = Field(default=None, ge=1500, le=2026)
     categoria: CategoriaLivro
@@ -206,11 +224,18 @@ class UpdateLivroDTO(AlexandriaBaseSchema):
     """Payload para atualização parcial de dados de um livro."""
     titulo: Optional[str] = Field(default=None, min_length=1, max_length=200)
     autor: Optional[str] = Field(default=None, min_length=2, max_length=100)
-    num_paginas: Optional[int] = Field(default=None, alias="num-paginas", ge=1, le=5000)
+    num_paginas: Optional[int] = Field(
+        default=None,
+        validation_alias=AliasChoices("num-paginas", "num_paginas", "numPaginas"),
+        serialization_alias="num-paginas",
+        ge=1,
+        le=5000,
+    )
     editora: Optional[str] = Field(default=None, min_length=2, max_length=100)
     publicacao: Optional[int] = Field(default=None, ge=1500, le=2026)
     categoria: Optional[CategoriaLivro] = None
     status: Optional[StatusLivro] = None
+    exemplar: Optional[bool] = None
 
 
 class LivroListResponse(AlexandriaBaseSchema):
@@ -226,13 +251,16 @@ class Usuario(AlexandriaBaseSchema):
     """Entidade completa de usuário leitor cadastrado."""
     usuario_id: int = Field(
         ...,
-        alias="usuario-id",
+        validation_alias=AliasChoices("usuario-id", "usuario_id", "usuarioId", "id"),
+        serialization_alias="usuario-id",
         ge=1,
         le=9999,
         description="Identificador único do leitor",
     )
     CPF: str = Field(
         ...,
+        validation_alias=AliasChoices("CPF", "cpf"),
+        serialization_alias="CPF",
         pattern=r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$",
         description="CPF formatado",
     )
@@ -249,24 +277,29 @@ class Usuario(AlexandriaBaseSchema):
     )
     dt_nascimento: Optional[date] = Field(
         default=None,
-        alias="dt-nascimento",
+        validation_alias=AliasChoices("dt-nascimento", "dt_nascimento", "dtNascimento"),
+        serialization_alias="dt-nascimento",
         description="Data de nascimento do leitor",
     )
     CEP: Optional[str] = Field(
         default=None,
+        validation_alias=AliasChoices("CEP", "cep"),
+        serialization_alias="CEP",
         pattern=r"^[0-9]{5}-[0-9]{3}$",
         description="CEP com traço",
     )
     limite_disp: int = Field(
         default=4,
-        alias="limite-disp",
+        validation_alias=AliasChoices("limite-disp", "limite_disp", "limiteDisp"),
+        serialization_alias="limite-disp",
         ge=0,
         le=4,
         description="Saldo disponível de empréstimos simultâneos",
     )
     dt_cadastro: datetime = Field(
         ...,
-        alias="dt-cadastro",
+        validation_alias=AliasChoices("dt-cadastro", "dt_cadastro", "dtCadastro"),
+        serialization_alias="dt-cadastro",
         description="Data/hora UTC de efetivação do cadastro",
     )
 
@@ -275,6 +308,8 @@ class CreateUsuarioDTO(AlexandriaBaseSchema):
     """Payload para cadastramento de um novo usuário leitor."""
     CPF: str = Field(
         ...,
+        validation_alias=AliasChoices("CPF", "cpf"),
+        serialization_alias="CPF",
         pattern=r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$",
         description="CPF formatado com pontos e traço",
     )
@@ -288,8 +323,17 @@ class CreateUsuarioDTO(AlexandriaBaseSchema):
         default=None,
         pattern=r"^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$",
     )
-    dt_nascimento: Optional[date] = Field(default=None, alias="dt-nascimento")
-    CEP: Optional[str] = Field(default=None, pattern=r"^[0-9]{5}-[0-9]{3}$")
+    dt_nascimento: Optional[date] = Field(
+        default=None,
+        validation_alias=AliasChoices("dt-nascimento", "dt_nascimento", "dtNascimento"),
+        serialization_alias="dt-nascimento",
+    )
+    CEP: Optional[str] = Field(
+        default=None,
+        validation_alias=AliasChoices("CEP", "cep"),
+        serialization_alias="CEP",
+        pattern=r"^[0-9]{5}-[0-9]{3}$",
+    )
 
 
 class UpdateUsuarioDTO(AlexandriaBaseSchema):
@@ -303,9 +347,24 @@ class UpdateUsuarioDTO(AlexandriaBaseSchema):
         default=None,
         pattern=r"^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$",
     )
-    dt_nascimento: Optional[date] = Field(default=None, alias="dt-nascimento")
-    CEP: Optional[str] = Field(default=None, pattern=r"^[0-9]{5}-[0-9]{3}$")
-    limite_disp: Optional[int] = Field(default=None, alias="limite-disp", ge=0, le=4)
+    dt_nascimento: Optional[date] = Field(
+        default=None,
+        validation_alias=AliasChoices("dt-nascimento", "dt_nascimento", "dtNascimento"),
+        serialization_alias="dt-nascimento",
+    )
+    CEP: Optional[str] = Field(
+        default=None,
+        validation_alias=AliasChoices("CEP", "cep"),
+        serialization_alias="CEP",
+        pattern=r"^[0-9]{5}-[0-9]{3}$",
+    )
+    limite_disp: Optional[int] = Field(
+        default=None,
+        validation_alias=AliasChoices("limite-disp", "limite_disp", "limiteDisp"),
+        serialization_alias="limite-disp",
+        ge=0,
+        le=4,
+    )
 
 
 class UsuarioListResponse(AlexandriaBaseSchema):
@@ -321,7 +380,8 @@ class Funcionario(AlexandriaBaseSchema):
     """Entidade completa de funcionário da equipe."""
     funcionario_id: int = Field(
         ...,
-        alias="funcionario-id",
+        validation_alias=AliasChoices("funcionario-id", "funcionario_id", "funcionarioId", "id"),
+        serialization_alias="funcionario-id",
         ge=1,
         le=9999,
         description="Identificador único do funcionário",
@@ -329,6 +389,8 @@ class Funcionario(AlexandriaBaseSchema):
     matricula: int = Field(..., ge=1, le=99999, description="Matrícula funcional")
     CPF: str = Field(
         ...,
+        validation_alias=AliasChoices("CPF", "cpf"),
+        serialization_alias="CPF",
         pattern=r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$",
         description="CPF do funcionário",
     )
@@ -342,8 +404,18 @@ class Funcionario(AlexandriaBaseSchema):
         default=None,
         pattern=r"^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$",
     )
-    dt_nascimento: date = Field(..., alias="dt-nascimento", description="Data de nascimento")
-    dt_admissao: datetime = Field(..., alias="dt-admissao", description="Data/hora UTC de admissão")
+    dt_nascimento: date = Field(
+        ...,
+        validation_alias=AliasChoices("dt-nascimento", "dt_nascimento", "dtNascimento"),
+        serialization_alias="dt-nascimento",
+        description="Data de nascimento",
+    )
+    dt_admissao: datetime = Field(
+        ...,
+        validation_alias=AliasChoices("dt-admissao", "dt_admissao", "dtAdmissao"),
+        serialization_alias="dt-admissao",
+        description="Data/hora UTC de admissão",
+    )
     salario: float = Field(..., ge=1621.0, description="Salário bruto mensal em reais")
 
 
@@ -352,6 +424,8 @@ class CreateFuncionarioDTO(AlexandriaBaseSchema):
     matricula: int = Field(..., ge=1, le=99999, description="Matrícula única")
     CPF: str = Field(
         ...,
+        validation_alias=AliasChoices("CPF", "cpf"),
+        serialization_alias="CPF",
         pattern=r"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}$",
         description="CPF formatado",
     )
@@ -365,10 +439,16 @@ class CreateFuncionarioDTO(AlexandriaBaseSchema):
         default=None,
         pattern=r"^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$",
     )
-    dt_nascimento: date = Field(..., alias="dt-nascimento", description="Data de nascimento")
+    dt_nascimento: date = Field(
+        ...,
+        validation_alias=AliasChoices("dt-nascimento", "dt_nascimento", "dtNascimento"),
+        serialization_alias="dt-nascimento",
+        description="Data de nascimento",
+    )
     dt_admissao: Optional[datetime] = Field(
         default=None,
-        alias="dt-admissao",
+        validation_alias=AliasChoices("dt-admissao", "dt_admissao", "dtAdmissao"),
+        serialization_alias="dt-admissao",
         description="Data de admissão (padrão agora)",
     )
     salario: float = Field(..., ge=1621.0, description="Salário bruto (mínimo de R$ 1.621,00)")
@@ -406,28 +486,32 @@ class Emprestimo(AlexandriaBaseSchema):
     """Entidade completa de empréstimo de livro."""
     emprestimo_id: int = Field(
         ...,
-        alias="emprestimo-id",
+        validation_alias=AliasChoices("emprestimo-id", "emprestimo_id", "emprestimoId", "id"),
+        serialization_alias="emprestimo-id",
         ge=1,
         le=9999,
         description="Identificador único do empréstimo",
     )
     livro_id: int = Field(
         ...,
-        alias="livro-id",
+        validation_alias=AliasChoices("livro-id", "livro_id", "livroId"),
+        serialization_alias="livro-id",
         ge=1,
         le=9999,
         description="ID do livro emprestado",
     )
     usuario_id: int = Field(
         ...,
-        alias="usuario-id",
+        validation_alias=AliasChoices("usuario-id", "usuario_id", "usuarioId"),
+        serialization_alias="usuario-id",
         ge=1,
         le=9999,
         description="ID do usuário leitor",
     )
     funcionario_id: int = Field(
         ...,
-        alias="funcionario-id",
+        validation_alias=AliasChoices("funcionario-id", "funcionario_id", "funcionarioId"),
+        serialization_alias="funcionario-id",
         ge=1,
         le=9999,
         description="ID do funcionário responsável pela operação",
@@ -435,33 +519,62 @@ class Emprestimo(AlexandriaBaseSchema):
     status: StatusEmprestimo = Field(..., description="Situação atual do empréstimo")
     dt_emprestimo: datetime = Field(
         ...,
-        alias="dt-emprestimo",
+        validation_alias=AliasChoices("dt-emprestimo", "dt_emprestimo", "dtEmprestimo"),
+        serialization_alias="dt-emprestimo",
         description="Data e hora UTC de retirada do livro",
     )
     dt_vencimento: datetime = Field(
         ...,
-        alias="dt-vencimento",
+        validation_alias=AliasChoices("dt-vencimento", "dt_vencimento", "dtVencimento"),
+        serialization_alias="dt-vencimento",
         description="Data e hora UTC limite de devolução",
     )
     dt_devolucao: Optional[datetime] = Field(
         default=None,
-        alias="dt-devolucao",
+        validation_alias=AliasChoices("dt-devolucao", "dt_devolucao", "dtDevolucao"),
+        serialization_alias="dt-devolucao",
         description="Data e hora UTC em que o livro foi devolvido",
     )
 
 
 class CreateEmprestimoDTO(AlexandriaBaseSchema):
     """Payload para registro de um novo empréstimo."""
-    livro_id: int = Field(..., alias="livro-id", ge=1, le=9999)
-    usuario_id: int = Field(..., alias="usuario-id", ge=1, le=9999)
-    funcionario_id: int = Field(..., alias="funcionario-id", ge=1, le=9999)
-    dt_vencimento: datetime = Field(..., alias="dt-vencimento")
+    livro_id: int = Field(
+        ...,
+        validation_alias=AliasChoices("livro-id", "livro_id", "livroId"),
+        serialization_alias="livro-id",
+        ge=1,
+        le=9999,
+    )
+    usuario_id: int = Field(
+        ...,
+        validation_alias=AliasChoices("usuario-id", "usuario_id", "usuarioId"),
+        serialization_alias="usuario-id",
+        ge=1,
+        le=9999,
+    )
+    funcionario_id: Optional[int] = Field(
+        default=None,
+        validation_alias=AliasChoices("funcionario-id", "funcionario_id", "funcionarioId"),
+        serialization_alias="funcionario-id",
+        ge=1,
+        le=9999,
+    )
+    dt_vencimento: datetime = Field(
+        ...,
+        validation_alias=AliasChoices("dt-vencimento", "dt_vencimento", "dtVencimento"),
+        serialization_alias="dt-vencimento",
+    )
 
 
 class UpdateEmprestimoDTO(AlexandriaBaseSchema):
     """Payload para atualização de status de empréstimo (devolução)."""
     status: StatusEmprestimo
-    dt_devolucao: Optional[datetime] = Field(default=None, alias="dt-devolucao")
+    dt_devolucao: Optional[datetime] = Field(
+        default=None,
+        validation_alias=AliasChoices("dt-devolucao", "dt_devolucao", "dtDevolucao"),
+        serialization_alias="dt-devolucao",
+    )
 
 
 class EmprestimoListResponse(AlexandriaBaseSchema):
