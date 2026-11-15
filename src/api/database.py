@@ -45,11 +45,10 @@ def get_db() -> Generator[Session, None, None]:
 
 
 # -----------------------------------------------------------------------------
-# Auxiliar de Hashing para Seed Inicial
+# Hashes de Senha Pré-computados para o Seed Inicial (Bcrypt rápido)
 # -----------------------------------------------------------------------------
-def _hash_seed_password(password: str) -> str:
-    """Gera hash bcrypt seguro para as senhas dos colaboradores semeados."""
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+ADMIN_SEED_PASSWORD_HASH = "$2b$10$CazhvInVIUfILvSbYHZuBeHYGvZwgf194QI3.jfZ625.fzBTOz286"
+BIBLIO_SEED_PASSWORD_HASH = "$2b$10$qe18Pb5ykX2v.ylk8idkRuKMd/dIxRa8C8EjIdjDEW1Q5VMp3GlhW"
 
 
 # -----------------------------------------------------------------------------
@@ -77,7 +76,7 @@ def init_db(target_engine=None) -> None:
                 dt_nascimento=date(1990, 3, 12),
                 dt_admissao=datetime(2024, 2, 1, 0, 0, 0),
                 salario=3200.50,
-                password_hash=_hash_seed_password("Admin@2026"),
+                password_hash=ADMIN_SEED_PASSWORD_HASH,
                 role="ADMIN",
             )
             session.add(admin)
@@ -95,7 +94,7 @@ def init_db(target_engine=None) -> None:
                 dt_nascimento=date(1995, 7, 20),
                 dt_admissao=datetime(2024, 3, 15, 0, 0, 0),
                 salario=2450.00,
-                password_hash=_hash_seed_password("Biblio@2026"),
+                password_hash=BIBLIO_SEED_PASSWORD_HASH,
                 role="BIBLIOTECARIO",
             )
             session.add(biblio)
