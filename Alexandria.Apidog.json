@@ -7,7 +7,7 @@
   },
   "info": {
     "name": "Alexandria",
-    "description": "API de gerenciamento ágil de tarefas da biblioteca Alexandria na disciplina de Programação Web.",
+    "description": "API de gerenciamento ágil do acervo e empréstimos da biblioteca Alexandria na disciplina de Programação Web.",
     "mockRule": {
       "rules": [],
       "enableSystemRule": true
@@ -690,7 +690,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo\"\n  \"invalidParams\": [{ \n      \"name\": \"categoria\", \n      \"reason\": \"Valor deve ser Aventura, Terror, Romance, Fantasia\" \n    }]\n}"
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo\",\n  \"invalidParams\": [\n    {\n      \"name\": \"categoria\",\n      \"reason\": \"Valor deve ser uma categoria válida do acervo.\"\n    }\n  ]\n}"
                         }
                       },
                       {
@@ -875,7 +875,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo\"\n  \"invalidParams\": [{ \n      \"name\": \"categoria\", \n      \"reason\": \"Valor fora da lista de categorias permitidas\" \n    }]\n}"
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo/{livro-id}\",\n  \"invalidParams\": [\n    {\n      \"name\": \"categoria\",\n      \"reason\": \"Valor fora da lista de categorias permitidas.\"\n    }\n  ]\n}"
                         }
                       },
                       {
@@ -1693,7 +1693,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/users/funcionarios/cadastrarFuncionario\"\n  \"invalidParams\": [{ \n      \"name\": \"livro-id\", \n      \"reason\": \"Deve ser um inteiro maior ou igual a 1.\" \n    }]\n}"
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/emprestimos\",\n  \"invalidParams\": [\n    {\n      \"name\": \"livro-id\",\n      \"reason\": \"Deve ser um inteiro maior ou igual a 1.\"\n    }\n  ]\n}"
                         }
                       },
                       {
@@ -1767,13 +1767,13 @@
                   "api": {
                     "id": "45549430",
                     "method": "patch",
-                    "path": "/api/v1/lib/emprestimos/{emprestimo-Id}",
+                    "path": "/api/v1/lib/emprestimos/{emprestimo-id}",
                     "parameters": {
                       "query": [],
                       "path": [
                         {
-                          "id": "emprestimo-Id#0",
-                          "name": "emprestimo-Id",
+                          "id": "emprestimo-id#0",
+                          "name": "emprestimo-id",
                           "required": true,
                           "description": "",
                           "type": "integer",
@@ -1861,7 +1861,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-founds\",\n  \"title\": \"Emprestimo Não Encontrado\",\n  \"status\": 404,\n  \"detail\": \"\",\n  \"instance\": \"/api/v1/lib/emprestimo/1\"\n}"
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-founds\",\n  \"title\": \"Emprestimo Não Encontrado\",\n  \"status\": 404,\n  \"detail\": \"\",\n  \"instance\": \"/api/v1/lib/emprestimos/1\"\n}"
                         }
                       },
                       {
@@ -1880,7 +1880,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo\"\n  \"invalidParams\": [{ \n      \"name\": \"categoria\", \n      \"reason\": \"Valor deve ser Aventura, Terror, Romance, Fantasia\" \n    }]\n}"
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/emprestimos/{emprestimo-id}\",\n  \"invalidParams\": [\n    {\n      \"name\": \"status\",\n      \"reason\": \"Valor deve ser Emprestado, Devolvido ou Vencido.\"\n    }\n  ]\n}"
                         }
                       },
                       {
@@ -1888,7 +1888,7 @@
                         "conditions": [
                           {
                             "location": "path",
-                            "name": "emprestimo-Id",
+                            "name": "emprestimo-id",
                             "value": "1",
                             "comparison": "equal"
                           }
@@ -1899,7 +1899,7 @@
                           "delay": 0,
                           "headers": [],
                           "bodyType": "json",
-                          "bodyData": "{\n  \"emprestimo-id\": 1,\n  \"livro-id\": 1,\n  \"usuario-id\": 7,\n  \"funcionario-id\": 2,\n  \"status\": \"Devolvido\",\n  \"dt-emprestimo\": \"2026-10-15T10:00:00Z\",\n  \"dt-vencimento\": \"2026-10-29T10:00:00Z\",\n  \"dt-devolucao\": 2026-10-22T10:15:00Z\n}"
+                          "bodyData": "{\n  \"emprestimo-id\": 1,\n  \"livro-id\": 1,\n  \"usuario-id\": 7,\n  \"funcionario-id\": 2,\n  \"status\": \"Devolvido\",\n  \"dt-emprestimo\": \"2026-10-15T10:00:00Z\",\n  \"dt-vencimento\": \"2026-10-29T10:00:00Z\",\n  \"dt-devolucao\": \"2026-10-22T10:15:00Z\"\n}"
                         }
                       }
                     ],
@@ -1911,6 +1911,137 @@
                     "codeSamples": [],
                     "commonResponseStatus": {
                       "3608316": true,
+                      "3608317": true
+                    },
+                    "responseChildren": [],
+                    "visibility": "INHERITED",
+                    "moduleId": 1447932,
+                    "oasExtensions": "",
+                    "type": "http",
+                    "preProcessors": [],
+                    "postProcessors": [],
+                    "inheritPostProcessors": {},
+                    "inheritPreProcessors": {}
+                  }
+                },
+                {
+                  "name": "Remover Empréstimo",
+                  "api": {
+                    "id": "45500699",
+                    "method": "delete",
+                    "path": "/api/v1/lib/emprestimos/{emprestimo-id}",
+                    "parameters": {
+                      "path": [
+                        {
+                          "id": "emprestimo-id#0",
+                          "name": "emprestimo-id",
+                          "required": true,
+                          "description": "Identificador único do empréstimo a ser removido",
+                          "type": "integer",
+                          "enable": true,
+                          "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                          }
+                        }
+                      ],
+                      "query": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "auth": {},
+                    "securityScheme": {},
+                    "commonParameters": {
+                      "query": [],
+                      "body": [],
+                      "cookie": [],
+                      "header": []
+                    },
+                    "responses": [
+                      {
+                        "id": "138314999",
+                        "code": "204",
+                        "name": "Sem Conteúdo",
+                        "headers": [],
+                        "jsonSchema": {
+                          "type": "object",
+                          "properties": {}
+                        },
+                        "itemSchema": {},
+                        "description": "<TipGood>\n:::highlight blue\n***Empréstimo*** removido com êxito\n:::\n</TipGood>",
+                        "contentType": "noContent",
+                        "mediaType": ""
+                      },
+                      {
+                        "id": "3608317",
+                        "name": "Não Encontrado",
+                        "referencedResponseId": 3608317
+                      }
+                    ],
+                    "responseExamples": [],
+                    "requestBody": {
+                      "type": "none",
+                      "parameters": [],
+                      "required": true,
+                      "mediaType": "",
+                      "examples": [],
+                      "oasExtensions": ""
+                    },
+                    "description": "Remove o registro de um empréstimo da base de dados através de seu identificador único.",
+                    "tags": [],
+                    "status": "developing",
+                    "serverId": "",
+                    "operationId": "",
+                    "sourceUrl": "",
+                    "ordering": 174,
+                    "cases": [],
+                    "mocks": [
+                      {
+                        "name": "Não Encontrado - 404",
+                        "conditions": [
+                          {
+                            "location": "path",
+                            "name": "emprestimo-id",
+                            "value": "9999",
+                            "comparison": "equal"
+                          }
+                        ],
+                        "ipCondition": {},
+                        "response": {
+                          "code": 200,
+                          "delay": 0,
+                          "headers": [],
+                          "bodyType": "json",
+                          "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-found\",\n  \"title\": \"Empréstimo inexistente\",\n  \"status\": 404,\n  \"detail\": \"O empréstimo informado não existe.\",\n  \"instance\": \"/api/v1/lib/emprestimos/{emprestimo-id}\"\n}"
+                        }
+                      },
+                      {
+                        "name": "Sem Conteúdo - 204",
+                        "conditions": [
+                          {
+                            "location": "path",
+                            "name": "emprestimo-id",
+                            "value": "1",
+                            "comparison": "equal"
+                          }
+                        ],
+                        "ipCondition": {},
+                        "response": {
+                          "code": 200,
+                          "delay": 0,
+                          "headers": [],
+                          "bodyType": "json",
+                          "bodyData": "{\n    \n}"
+                        }
+                      }
+                    ],
+                    "customApiFields": "{}",
+                    "advancedSettings": {
+                      "disabledSystemHeaders": {}
+                    },
+                    "mockScript": {},
+                    "codeSamples": [],
+                    "commonResponseStatus": {
                       "3608317": true
                     },
                     "responseChildren": [],
@@ -2120,7 +2251,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"Parâmetros de consulta inválidos.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\"\n}"
                             }
                           },
                           {
@@ -2302,7 +2433,7 @@
                       "api": {
                         "id": "45500064",
                         "method": "post",
-                        "path": "/api/v1/lib/users/funcionarios/cadastrarFuncionario",
+                        "path": "/api/v1/lib/users/funcionarios",
                         "parameters": {
                           "query": []
                         },
@@ -2402,7 +2533,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"O corpo da requisição não é um JSON válido.\",\n  \"instance\": \"/api/v1/users/funcionarios/cadastrarFuncionario\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"O corpo da requisição não é um JSON válido.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\"\n}"
                             }
                           },
                           {
@@ -2421,7 +2552,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/users/funcionarios/cadastrarFuncionario\"\n  \"invalidParams\": [{ \n      \"name\": \"CPF\", \n      \"reason\": \"CPF inválido (dígitos verificadores não conferem).\" \n    }]\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\",\n  \"invalidParams\": [\n    {\n      \"name\": \"CPF\",\n      \"reason\": \"CPF inválido (dígitos verificadores não conferem).\"\n    }\n  ]\n}"
                             }
                           },
                           {
@@ -2440,7 +2571,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/conflict\",\n  \"title\": \"Funcionário já cadastrado\",\n  \"status\": 409,\n  \"detail\": \"Já existe um funcionário com esse CPF\",\n  \"instance\": \"/api/v1/users/funcionarios/cadastrarFuncionario\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/conflict\",\n  \"title\": \"Funcionário já cadastrado\",\n  \"status\": 409,\n  \"detail\": \"Já existe um funcionário com esse CPF\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\"\n}"
                             }
                           },
                           {
@@ -2588,7 +2719,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-founds\",\n  \"title\": \"Funcionario Não Encontrado\",\n  \"status\": 404,\n  \"detail\": \"O funcionário não foi localizado.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-found\",\n  \"title\": \"Funcionário não encontrado\",\n  \"status\": 404,\n  \"detail\": \"O funcionário informado não existe.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios/{funcionario-id}\"\n}"
                             }
                           },
                           {
@@ -2607,7 +2738,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/users/funcionarios\"\n  \"invalidParams\": [{ \n      \"name\": \"salario\", \n      \"reason\": \"O salário deve ser no mínimo 1621\" \n    }]\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/users/funcionarios/{funcionario-id}\",\n  \"invalidParams\": [\n    {\n      \"name\": \"salario\",\n      \"reason\": \"O salário deve ser no mínimo 1621.\"\n    }\n  ]\n}"
                             }
                           },
                           {
@@ -2825,7 +2956,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Parâmetros inválidos\",\n  \"status\": 400,\n  \"detail\": \"O parâmetro 'page' deve ser maior ou igual a 1.\",\n  \"instance\": \"/api/v1/users/\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"Parâmetros de consulta inválidos.\",\n  \"instance\": \"/api/v1/lib/users/usuarios\"\n}"
                             }
                           },
                           {
@@ -2850,7 +2981,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n\t\"data\":[{\n\t\t\t\"usuario-id\":7,\n\t\t\t\"CPF\":\"123.456.789-09\",\n\t\t\t\"nome\":\"maria.silva@email.com\",\n\t\t\t\"email\":\"maria.silva@email.com\",\n\t\t\t\"telefone\":\"(16)99999-9999\",\n\t\t\t\"dt-nascimento\":\"2000-05-20\",\n\t\t\t\"CEP\":\"14000-000\",\n\t\t\t\"limite-disp\":3,\n\t\t\t\"dt-cadastro\":\"2026-09-10T12:00:00Z\"\n\t\t},\n\t\t{\n\t\t\t\"usuario-id\":8,\n\t\t\t\"CPF\":\"456.789.123-55\"\n\t\t\t\"nome\":\"Carlos Pereira\",\n\t\t\t\"email\":\"carlos.pereira@email.com\",\n\t\t\t\"telefone\":\"(16)3333-4444\",\n\t\t\t\"dt-nascimento\":\"1995-08-30\",\n\t\t\t\"CEP\":\"14010-100\",\n\t\t\t\"limite-disp\":4,\n\t\t\t\"dt-cadastro\":\"2026-09-12T15:20:00Z\"\n\t\t}\n\t],\n\t\"meta\":{\n\t\t\t\"page\":1,\n\t\t\t\"limit\":2,\n\t\t\t\"totalItems\":8,\n\t\t\t\"totalPages\":4,\n\t\t\t\"hasNext\":true\n\t\t}\n}"
+                              "bodyData": "{\n  \"data\": [\n    {\n      \"usuario-id\": 7,\n      \"CPF\": \"123.456.789-09\",\n      \"nome\": \"Maria Silva\",\n      \"email\": \"maria.silva@email.com\",\n      \"telefone\": \"(16)99999-9999\",\n      \"dt-nascimento\": \"2000-05-20\",\n      \"CEP\": \"14000-000\",\n      \"limite-disp\": 3,\n      \"dt-cadastro\": \"2026-09-10T12:00:00Z\"\n    },\n    {\n      \"usuario-id\": 8,\n      \"CPF\": \"456.789.123-55\",\n      \"nome\": \"Carlos Pereira\",\n      \"email\": \"carlos.pereira@email.com\",\n      \"telefone\": \"(16)3333-4444\",\n      \"dt-nascimento\": \"1995-08-30\",\n      \"CEP\": \"14010-100\",\n      \"limite-disp\": 4,\n      \"dt-cadastro\": \"2026-09-12T15:20:00Z\"\n    }\n  ],\n  \"meta\": {\n    \"page\": 1,\n    \"limit\": 2,\n    \"totalItems\": 8,\n    \"totalPages\": 4,\n    \"hasNext\": true\n  }\n}"
                             }
                           }
                         ],
@@ -2959,7 +3090,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-founds\",\n  \"title\": \"Leitor Não Encontrado\",\n  \"status\": 404,\n  \"detail\": \"O leitor não foi localizado.\",\n  \"instance\": \"/api/v1/users/usuarios\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-found\",\n  \"title\": \"Usuário não encontrado\",\n  \"status\": 404,\n  \"detail\": \"O usuário informado não existe.\",\n  \"instance\": \"/api/v1/lib/users/usuarios/{usuario-id}\"\n}"
                             }
                           },
                           {
@@ -3107,7 +3238,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"O corpo da requisição não é um JSON válido.\",\n  \"instance\": \"/api/v1/users/usuarios\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/bad-request\",\n  \"title\": \"Solicitação Incorreta\",\n  \"status\": 400,\n  \"detail\": \"O corpo da requisição não é um JSON válido.\",\n  \"instance\": \"/api/v1/lib/users/usuarios\"\n}"
                             }
                           },
                           {
@@ -3126,7 +3257,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1//users/usuarios\"\n  \"invalidParams\": [{ \n      \"name\": \"CPF\", \n      \"reason\": \"CPF inválido (dígitos verificadores não conferem).\" \n    }]\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/users/usuarios\",\n  \"invalidParams\": [\n    {\n      \"name\": \"CPF\",\n      \"reason\": \"CPF inválido (dígitos verificadores não conferem).\"\n    }\n  ]\n}"
                             }
                           },
                           {
@@ -3145,7 +3276,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/conflict\",\n  \"title\": \"Leitor já cadastrado\",\n  \"status\": 409,\n  \"detail\": \"Já existe um leitor com esse CPF cadastrado.\",\n  \"instance\": \"/api/v1/users/usuarios\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/conflict\",\n  \"title\": \"Usuário já cadastrado\",\n  \"status\": 409,\n  \"detail\": \"Já existe um usuário com esse CPF.\",\n  \"instance\": \"/api/v1/lib/users/usuarios\"\n}"
                             }
                           },
                           {
@@ -3294,7 +3425,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-founds\",\n  \"title\": \"Leitor Não Encontrado\",\n  \"status\": 404,\n  \"detail\": \"O leitor não foi localizado.\",\n  \"instance\": \"/api/v1/users/usuarios\"\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/not-found\",\n  \"title\": \"Usuário não encontrado\",\n  \"status\": 404,\n  \"detail\": \"O usuário informado não existe.\",\n  \"instance\": \"/api/v1/lib/users/usuarios/{usuario-id}\"\n}"
                             }
                           },
                           {
@@ -3313,7 +3444,7 @@
                               "delay": 0,
                               "headers": [],
                               "bodyType": "json",
-                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/acervo\"\n  \"invalidParams\": [{ \n      \"name\": \"limite-disp\", \n      \"reason\": \"Deve estar entre 0 e 4.\" \n    }]\n}"
+                              "bodyData": "{\n  \"type\": \"https://api.alexandria.dev/errors/validation-error\",\n  \"title\": \"Erro de validação\",\n  \"status\": 422,\n  \"detail\": \"Um ou mais campos são inválidos.\",\n  \"instance\": \"/api/v1/lib/users/usuarios/{usuario-id}\",\n  \"invalidParams\": [\n    {\n      \"name\": \"limite-disp\",\n      \"reason\": \"Deve estar entre 0 e 4.\"\n    }\n  ]\n}"
                             }
                           },
                           {
@@ -3413,7 +3544,7 @@
           "id": 2506750,
           "name": "README",
           "sidebarTitle": "",
-          "content": "Nome e Propósito da API\nEsta API RESTful foi desenvolvida para o gerenciamento ágil do acervo de uma biblioteca e seus processos de empréstimo. O objetivo principal é digitalizar e automatizar o controle de livros, a gestão de cadastros e o rastreamento do ciclo de vida das retiradas e devoluções. O público-alvo inclui bibliotecários e administradores do sistema que necessitam de uma interface centralizada e confiável para manter o acervo atualizado e monitorar as pendências.\n\nArquitetura de Recursos\nA arquitetura foi modelada de forma relacional em torno de quatro entidades principais do domínio:\n\nLivros (/api/v1/lib/acervo): Gerencia o catálogo da biblioteca, incluindo metadados (ISBN, autor), controle de exemplares, status de conservação e estatísticas de uso.\n\nEmpréstimos (/api/v1/lib/emprestimos): Registra as transações temporais, unindo livros, usuários (leitores) e os funcionários responsáveis pela operação.\n\nUsuários (/api/v1/lib/users/usuarios): Controla os leitores cadastrados e gerencia regras de negócio, como o limite de livros simultâneos disponíveis.\n\nFuncionários (/api/v1/lib/users/funcionarios): Mantém os dados da equipe administrativa e operadores do sistema.\n\nEquipe Envolvida\n\nGuilherme Assunção Barboza — RA: 2840482423014 / GitHub: [guiassuno](!https://github.com/guiassuno)\n\nJulia Roberta da Silva — RA: 2840482423020 / GitHub: [!liaroberta](!https://github.com/liaroberta)\n",
+          "content": "Nome e Propósito da API\nEsta API RESTful foi desenvolvida para o gerenciamento ágil do acervo de uma biblioteca e seus processos de empréstimo. O objetivo principal é digitalizar e automatizar o controle de livros, a gestão de cadastros e o rastreamento do ciclo de vida das retiradas e devoluções. O público-alvo inclui bibliotecários e administradores do sistema que necessitam de uma interface centralizada e confiável para manter o acervo atualizado e monitorar as pendências.\n\nArquitetura de Recursos\nA arquitetura foi modelada de forma relacional em torno de quatro entidades principais do domínio:\n\nLivros (/api/v1/lib/acervo): Gerencia o catálogo da biblioteca, incluindo metadados (ISBN, autor), controle de exemplares, status de conservação e estatísticas de uso.\n\nEmpréstimos (/api/v1/lib/emprestimos): Registra as transações temporais, unindo livros, usuários (leitores) e os funcionários responsáveis pela operação.\n\nUsuários (/api/v1/lib/users/usuarios): Controla os leitores cadastrados e gerencia regras de negócio, como o limite de livros simultâneos disponíveis.\n\nFuncionários (/api/v1/lib/users/funcionarios): Mantém os dados da equipe administrativa e operadores do sistema.\n\nEquipe Envolvida\n\nGuilherme Assunção Barboza — RA: 2840482423014 / GitHub: [guiassuno](https://github.com/guiassuno)\n\nJulia Roberta da Silva — RA: 2840482423020 / GitHub: [liaroberta](https://github.com/liaroberta)\n",
           "folderId": 0,
           "type": "",
           "tags": [],
@@ -3517,7 +3648,7 @@
               "name": "Livro",
               "displayName": "",
               "id": "#/definitions/18338998",
-              "description": "",
+              "description": "Entidade representativa de uma obra literária cadastrada no acervo da biblioteca Alexandria.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -3526,21 +3657,31 @@
                       "type": "string",
                       "minLength": 1,
                       "maxLength": 200,
-                      "x-apidog-mock": "@title(3, 7)"
+                      "x-apidog-mock": "@title(3, 7)",
+                      "description": "Título principal da obra literária",
+                      "example": "O Senhor dos Anéis: A Sociedade do Anel"
                     },
                     "autor": {
                       "type": [
                         "string",
                         "null"
                       ],
-                      "x-apidog-mock": "{{$person.fullName(locale='en')}}"
+                      "x-apidog-mock": "{{$person.fullName(locale='en')}}",
+                      "description": "Nome completo do autor ou organizador da obra",
+                      "example": "J. R. R. Tolkien",
+                      "minLength": 2,
+                      "maxLength": 100
                     },
                     "editora": {
                       "type": [
                         "string",
                         "null"
                       ],
-                      "x-apidog-mock": "@title(1, 2)"
+                      "x-apidog-mock": "@title(1, 2)",
+                      "description": "Nome da editora responsável pela publicação",
+                      "example": "HarperCollins",
+                      "minLength": 2,
+                      "maxLength": 100
                     },
                     "publicacao": {
                       "type": [
@@ -3548,7 +3689,11 @@
                         "null"
                       ],
                       "format": "uint32",
-                      "x-apidog-mock": "@integer(1950, 2025)"
+                      "x-apidog-mock": "@integer(1950, 2025)",
+                      "description": "Ano original de publicação da obra",
+                      "example": 1954,
+                      "minimum": 1500,
+                      "maximum": 2026
                     },
                     "categoria": {
                       "type": "string",
@@ -3597,12 +3742,17 @@
                           "name": "",
                           "description": ""
                         }
-                      ]
+                      ],
+                      "description": "Gênero literário ou categoria temática do livro",
+                      "example": "Fantasia",
+                      "x-apidog-mock": "@pick(['Aventura', 'Terror', 'Romance', 'Fantasia', 'Ficção Científica', 'Suspense', 'Estudantil'])"
                     },
                     "exemplar": {
                       "type": "boolean",
                       "default": false,
-                      "x-apidog-mock": "{{$datatype.boolean}}"
+                      "x-apidog-mock": "{{$datatype.boolean}}",
+                      "description": "Indica se o item é exemplar de consulta local exclusiva (não sai para empréstimo)",
+                      "example": false
                     },
                     "num-paginas": {
                       "type": [
@@ -3611,21 +3761,28 @@
                       ],
                       "format": "uint32",
                       "minimum": 1,
-                      "x-apidog-mock": "@integer(50, 900)"
+                      "x-apidog-mock": "@integer(50, 900)",
+                      "description": "Quantidade total de páginas da obra",
+                      "example": 576,
+                      "maximum": 5000
                     },
                     "qtd-emprestimos": {
                       "type": "integer",
                       "format": "uint32",
                       "default": 0,
                       "minimum": 0,
-                      "x-apidog-mock": "@integer(0, 50)"
+                      "x-apidog-mock": "@integer(0, 50)",
+                      "description": "Contador histórico acumulado de empréstimos realizados do livro",
+                      "example": 12
                     },
                     "dt-cadastro": {
                       "type": "string",
                       "format": "date-time",
                       "readOnly": true,
                       "default": "@now",
-                      "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")"
+                      "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")",
+                      "description": "Data e hora UTC em que a obra foi cadastrada no acervo",
+                      "example": "2026-01-10T14:30:00Z"
                     },
                     "livro-id": {
                       "type": "integer",
@@ -3633,11 +3790,16 @@
                       "readOnly": true,
                       "minimum": 1,
                       "maximum": 9999,
-                      "x-apidog-mock": "@integer(1, 9999)"
+                      "x-apidog-mock": "@integer(1, 9999)",
+                      "description": "Identificador único do livro no acervo",
+                      "example": 1
                     },
                     "ISBN": {
                       "type": "string",
-                      "pattern": "^[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}$"
+                      "pattern": "^[0-9]{3}-[0-9]{2}-[0-9]{5}-[0-9]{2}-[0-9]{1}$",
+                      "description": "Número Padrão Internacional de Livro formatado (ISBN-13 com hífens)",
+                      "example": "978-85-359-0277-8",
+                      "x-apidog-mock": "@regex('^978-85-[0-9]{5}-[0-9]{2}-[0-9]{1}$')"
                     },
                     "status": {
                       "type": "string",
@@ -3668,7 +3830,10 @@
                           "name": "",
                           "description": ""
                         }
-                      ]
+                      ],
+                      "description": "Estado físico de conservação do exemplar",
+                      "example": "Conservado",
+                      "x-apidog-mock": "@pick(['Novo', 'Conservado', 'Regular', 'Danificado'])"
                     }
                   },
                   "x-apidog-orders": [
@@ -3704,7 +3869,7 @@
               "name": "CreateLivro",
               "displayName": "",
               "id": "#/definitions/18338999",
-              "description": "",
+              "description": "Payload DTO para criação de um novo livro no acervo.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -3730,7 +3895,7 @@
               "name": "UpdateLivro",
               "displayName": "",
               "id": "#/definitions/18339904",
-              "description": "",
+              "description": "Payload DTO para atualização parcial de dados de um livro do acervo.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -3758,7 +3923,7 @@
               "name": "LivroListResponse",
               "displayName": "",
               "id": "#/definitions/18342357",
-              "description": "",
+              "description": "Envelope de resposta paginada para listagem do acervo de livros.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -3767,10 +3932,12 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/definitions/18338998"
-                      }
+                      },
+                      "description": "Lista de registros da coleção retornados para a página solicitada"
                     },
                     "meta": {
-                      "$ref": "#/definitions/18339903"
+                      "$ref": "#/definitions/18339903",
+                      "description": "Metadados de controle da paginação"
                     }
                   },
                   "x-apidog-orders": [
@@ -3798,26 +3965,41 @@
               "name": "ApiError",
               "displayName": "",
               "id": "#/definitions/18339000",
-              "description": "",
+              "description": "Representação padronizada de resposta de erro HTTP em conformidade com a RFC 9457 (Problem Details).",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
                   "properties": {
                     "type": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "uri",
+                      "description": "URI de referência identificando o tipo de erro específico",
+                      "example": "https://api.alexandria.dev/errors/not-found",
+                      "x-apidog-mock": "https://api.alexandria.dev/errors/not-found"
                     },
                     "title": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Resumo curto e legível para humanos descrevendo a natureza do erro",
+                      "example": "Recurso não encontrado",
+                      "x-apidog-mock": "Recurso não encontrado"
                     },
                     "status": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Código de status HTTP numérico correspondente à resposta",
+                      "example": 404,
+                      "x-apidog-mock": "@integer(400, 499)"
                     },
                     "detail": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Explicação detalhada e humanizada sobre o motivo da falha ocorrida",
+                      "example": "O registro com o identificador informado não foi localizado na base de dados.",
+                      "x-apidog-mock": "@sentence(6, 12)"
                     },
                     "instance": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "URI do endpoint onde a requisição que originou o erro ocorreu",
+                      "example": "/api/v1/lib/acervo/9999",
+                      "x-apidog-mock": "/api/v1/lib/acervo/9999"
                     },
                     "invalidParams": {
                       "type": "array",
@@ -3835,7 +4017,14 @@
                           "name",
                           "reason"
                         ]
-                      }
+                      },
+                      "description": "Lista opcional de parâmetros que violaram regras de validação sintática ou semântica",
+                      "example": [
+                        {
+                          "name": "CPF",
+                          "reason": "Formato inválido de CPF"
+                        }
+                      ]
                     }
                   },
                   "x-apidog-orders": [
@@ -3861,30 +4050,40 @@
               "name": "PageMeta",
               "displayName": "",
               "id": "#/definitions/18339903",
-              "description": "",
+              "description": "Metadados de paginação aplicados em coleções de recursos da API.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
                   "properties": {
                     "page": {
                       "type": "integer",
-                      "x-apidog-mock": "@integer(1, 5)"
+                      "x-apidog-mock": "@integer(1, 5)",
+                      "description": "Número da página atual da consulta paginada (iniciando em 1)",
+                      "example": 1
                     },
                     "limit": {
                       "type": "integer",
-                      "x-apidog-mock": "@integer(5, 20)"
+                      "x-apidog-mock": "@integer(5, 20)",
+                      "description": "Quantidade máxima de itens por página retornada na resposta",
+                      "example": 10
                     },
                     "totalItems": {
                       "type": "integer",
-                      "x-apidog-mock": "@integer(20, 150)"
+                      "x-apidog-mock": "@integer(20, 150)",
+                      "description": "Contagem total de registros disponíveis correspondentes aos filtros",
+                      "example": 42
                     },
                     "totalPages": {
                       "type": "integer",
-                      "x-apidog-mock": "@integer(2, 15)"
+                      "x-apidog-mock": "@integer(2, 15)",
+                      "description": "Total acumulado de páginas existentes de acordo com o limite definido",
+                      "example": 5
                     },
                     "hasNext": {
                       "type": "boolean",
-                      "x-apidog-mock": "@boolean"
+                      "x-apidog-mock": "@boolean",
+                      "description": "Indica se existe uma próxima página de resultados a ser consultada",
+                      "example": true
                     }
                   },
                   "x-apidog-orders": [
@@ -3918,7 +4117,7 @@
               "name": "Emprestimo",
               "displayName": "",
               "id": "#/definitions/18339905",
-              "description": "",
+              "description": "Registro de transação de empréstimo relacionando livro, usuário (leitor) e funcionário responsável.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -3950,50 +4149,59 @@
                       "default": "Emprestado",
                       "examples": [
                         "Emprestado"
-                      ]
+                      ],
+                      "description": "Situação atual do empréstimo (Emprestado, Devolvido ou Vencido)",
+                      "example": "Emprestado",
+                      "x-apidog-mock": "@pick(['Emprestado', 'Devolvido', 'Vencido'])"
                     },
                     "emprestimo-id": {
                       "type": "integer",
-                      "description": "ID",
+                      "description": "Identificador único do empréstimo",
                       "x-apidog-mock": "@integer(1, 9999)",
                       "readOnly": true,
                       "minimum": 1,
                       "maximum": 9999,
-                      "format": "uint32"
+                      "format": "uint32",
+                      "example": 1
                     },
                     "livro-id": {
                       "type": "integer",
-                      "description": "ID do Livro",
+                      "description": "Identificador único do livro emprestado",
                       "x-apidog-mock": "@integer(1, 9999)",
                       "readOnly": true,
                       "minimum": 1,
                       "maximum": 9999,
-                      "format": "uint32"
+                      "format": "uint32",
+                      "example": 1
                     },
                     "usuario-id": {
                       "type": "integer",
-                      "description": "ID do Usuario",
+                      "description": "Identificador único do usuário leitor tomador do empréstimo",
                       "x-apidog-mock": "@integer(1, 9999)",
                       "readOnly": true,
                       "minimum": 1,
                       "maximum": 9999,
-                      "format": "uint32"
+                      "format": "uint32",
+                      "example": 7
                     },
                     "funcionario-id": {
                       "type": "integer",
-                      "description": "ID do Funcionario",
+                      "description": "Identificador único do funcionário que registrou a operação",
                       "x-apidog-mock": "@integer(1, 9999)",
                       "readOnly": true,
                       "minimum": 1,
                       "maximum": 9999,
-                      "format": "uint32"
+                      "format": "uint32",
+                      "example": 2
                     },
                     "dt-emprestimo": {
                       "type": "string",
                       "format": "date-time",
                       "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")",
                       "readOnly": true,
-                      "default": "@now"
+                      "default": "@now",
+                      "description": "Data e hora UTC em que o livro foi retirado da biblioteca",
+                      "example": "2026-10-15T10:00:00Z"
                     },
                     "dt-devolucao": {
                       "type": [
@@ -4002,13 +4210,17 @@
                       ],
                       "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")",
                       "format": "date-time",
-                      "readOnly": true
+                      "readOnly": true,
+                      "description": "Data e hora UTC em que o livro foi devolvido ao acervo (nulo se ativo)",
+                      "example": "2026-10-22T10:15:00Z"
                     },
                     "dt-vencimento": {
                       "type": "string",
                       "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")",
                       "format": "date-time",
-                      "readOnly": true
+                      "readOnly": true,
+                      "description": "Data e hora UTC limite para devolução do livro sem atraso",
+                      "example": "2026-10-29T10:00:00Z"
                     }
                   },
                   "x-apidog-orders": [
@@ -4040,7 +4252,7 @@
               "name": "CreateEmprestimo",
               "displayName": "",
               "id": "#/definitions/18340003",
-              "description": "",
+              "description": "Payload DTO para registro de um novo empréstimo de livro.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -4070,7 +4282,7 @@
               "name": "UpdateEmprestimo",
               "displayName": "",
               "id": "#/definitions/18340004",
-              "description": "",
+              "description": "Payload DTO para atualização de empréstimo (devolução/status).",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -4105,7 +4317,7 @@
               "name": "EmprestimoListResponse",
               "displayName": "",
               "id": "#/definitions/18342358",
-              "description": "",
+              "description": "Envelope de resposta paginada para listagem de empréstimos.",
               "schema": {
                 "jsonSchema": {
                   "type": "object",
@@ -4114,10 +4326,12 @@
                       "type": "array",
                       "items": {
                         "$ref": "#/definitions/18339905"
-                      }
+                      },
+                      "description": "Lista de registros da coleção retornados para a página solicitada"
                     },
                     "meta": {
-                      "$ref": "#/definitions/18339903"
+                      "$ref": "#/definitions/18339903",
+                      "description": "Metadados de controle da paginação"
                     }
                   },
                   "x-apidog-orders": [
@@ -4151,7 +4365,7 @@
                   "name": "Funcionario",
                   "displayName": "",
                   "id": "#/definitions/18340223",
-                  "description": "",
+                  "description": "Dados cadastrais de membro da equipe administrativa e operacional da biblioteca Alexandria.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4161,48 +4375,61 @@
                           "format": "uint32",
                           "minimum": 1,
                           "maximum": 99999,
-                          "x-apidog-mock": "@integer(20260001, 20269999)"
+                          "x-apidog-mock": "@integer(20260001, 20269999)",
+                          "description": "Número de matrícula funcional único do colaborador",
+                          "example": 20260
                         },
                         "nome": {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 120,
-                          "x-apidog-mock": "{{$person.fullName(locale='en')}}"
+                          "x-apidog-mock": "{{$person.fullName(locale='en')}}",
+                          "description": "Nome completo do funcionário",
+                          "example": "João Souza"
                         },
                         "email": {
-                          "type": [
-                            "string",
-                            "null"
-                          ],
+                          "type": "string",
                           "x-apidog-mock": "{{$internet.email}}",
-                          "format": "email"
+                          "format": "email",
+                          "description": "Endereço de e-mail institucional corporativo utilizado para autenticação no sistema",
+                          "example": "joao.souza@biblioteca.com"
                         },
                         "telefone": {
                           "type": "string",
                           "pattern": "^\\([0-9]{2}\\)[0-9]{4,5}-[0-9]{4}$",
-                          "x-apidog-mock": "(16)98888-7777"
+                          "x-apidog-mock": "(16)98888-7777",
+                          "description": "Número de telefone para contato profissional ou pessoal formatado com DDD",
+                          "example": "(16)98888-7777"
                         },
                         "salario": {
                           "type": "number",
                           "minimum": 1621,
-                          "x-apidog-mock": "@float(1500, 9000, 2, 2)"
+                          "x-apidog-mock": "@float(1500, 9000, 2, 2)",
+                          "description": "Remuneração mensal bruta em reais (mínimo de R$ 1.621,00)",
+                          "example": 3200.5
                         },
                         "CPF": {
                           "type": "string",
                           "pattern": "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$",
-                          "x-apidog-mock": "987.654.321-00"
+                          "x-apidog-mock": "987.654.321-00",
+                          "description": "Cadastro de Pessoas Físicas (CPF) formatado com pontos e traço",
+                          "example": "987.654.321-00"
                         },
                         "dt-nascimento": {
                           "type": "string",
                           "format": "date",
-                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}"
+                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}",
+                          "description": "Data de nascimento do funcionário no padrão AAAA-MM-DD",
+                          "example": "1990-03-12"
                         },
                         "dt-admissao": {
                           "type": "string",
                           "format": "date-time",
                           "readOnly": true,
                           "default": "@now",
-                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}"
+                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}",
+                          "description": "Data e hora UTC de contratação/admissão do colaborador na biblioteca",
+                          "example": "2024-02-01T00:00:00Z"
                         },
                         "funcionario-id": {
                           "type": "integer",
@@ -4210,7 +4437,9 @@
                           "readOnly": true,
                           "minimum": 1,
                           "maximum": 9999,
-                          "x-apidog-mock": "@integer(1, 9999)"
+                          "x-apidog-mock": "@integer(1, 9999)",
+                          "description": "Identificador único do funcionário",
+                          "example": 1
                         }
                       },
                       "x-apidog-orders": [
@@ -4231,7 +4460,8 @@
                         "nome",
                         "dt-admissao",
                         "dt-nascimento",
-                        "salario"
+                        "salario",
+                        "email"
                       ]
                     }
                   },
@@ -4242,7 +4472,7 @@
                   "name": "CreateFuncionario",
                   "displayName": "",
                   "id": "#/definitions/18340224",
-                  "description": "",
+                  "description": "Payload DTO para cadastramento de novo membro da equipe.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4267,7 +4497,7 @@
                   "name": "UpdateFuncionario",
                   "displayName": "",
                   "id": "#/definitions/18340225",
-                  "description": "",
+                  "description": "Payload DTO para atualização de informações funcionais.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4296,7 +4526,7 @@
                   "name": "FuncionarioListResponse",
                   "displayName": "",
                   "id": "#/definitions/18342360",
-                  "description": "",
+                  "description": "Envelope de resposta paginada para listagem de funcionários da equipe.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4305,10 +4535,12 @@
                           "type": "array",
                           "items": {
                             "$ref": "#/definitions/18340223"
-                          }
+                          },
+                          "description": "Lista de registros da coleção retornados para a página solicitada"
                         },
                         "meta": {
-                          "$ref": "#/definitions/18339903"
+                          "$ref": "#/definitions/18339903",
+                          "description": "Metadados de controle da paginação"
                         }
                       },
                       "x-apidog-orders": [
@@ -4336,25 +4568,25 @@
                   "name": "Usuario",
                   "displayName": "",
                   "id": "#/definitions/18340002",
-                  "description": "",
+                  "description": "Dados cadastrais do usuário leitor autorizado a consultar e realizar empréstimos de livros.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
                       "properties": {
                         "nome": {
-                          "type": [
-                            "string",
-                            "null"
-                          ],
-                          "x-apidog-mock": "{{$person.fullName(locale='en')}}"
+                          "type": "string",
+                          "x-apidog-mock": "{{$person.fullName(locale='en')}}",
+                          "minLength": 3,
+                          "maxLength": 120,
+                          "description": "Nome completo do leitor cadastrado",
+                          "example": "Maria Silva"
                         },
                         "email": {
-                          "type": [
-                            "string",
-                            "null"
-                          ],
+                          "type": "string",
                           "x-apidog-mock": "{{$internet.email}}",
-                          "format": "email"
+                          "format": "email",
+                          "description": "Endereço de e-mail eletrônico para notificações e comunicação",
+                          "example": "maria.silva@email.com"
                         },
                         "telefone": {
                           "type": [
@@ -4362,7 +4594,9 @@
                             "null"
                           ],
                           "x-apidog-mock": "(16)99999-9999",
-                          "pattern": "^\\([0-9]{2}\\)[0-9]{4,5}-[0-9]{4}$"
+                          "pattern": "^\\([0-9]{2}\\)[0-9]{4,5}-[0-9]{4}$",
+                          "description": "Telefone celular ou fixo para contato com DDD",
+                          "example": "(16)99999-9999"
                         },
                         "usuario-id": {
                           "type": "integer",
@@ -4370,17 +4604,23 @@
                           "readOnly": true,
                           "minimum": 1,
                           "maximum": 9999,
-                          "x-apidog-mock": "@integer(1, 9999)"
+                          "x-apidog-mock": "@integer(1, 9999)",
+                          "description": "Identificador único do usuário leitor",
+                          "example": 7
                         },
                         "CPF": {
                           "type": "string",
                           "pattern": "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}$",
-                          "x-apidog-mock": "123.456.789-09"
+                          "x-apidog-mock": "123.456.789-09",
+                          "description": "Cadastro de Pessoas Físicas (CPF) do leitor formatado com pontos e traço",
+                          "example": "123.456.789-09"
                         },
                         "CEP": {
                           "type": "string",
                           "pattern": "^[0-9]{5}-[0-9]{3}$",
-                          "x-apidog-mock": "14000-000"
+                          "x-apidog-mock": "14000-000",
+                          "description": "Código de Endereçamento Postal formatado com traço",
+                          "example": "14000-000"
                         },
                         "dt-nascimento": {
                           "type": [
@@ -4389,21 +4629,27 @@
                           ],
                           "format": "date",
                           "default": "null",
-                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}"
+                          "x-apidog-mock": "{{$date.anytime|format('yyyy-MM-dd')}}",
+                          "description": "Data de nascimento do leitor no padrão AAAA-MM-DD",
+                          "example": "2001-08-25"
                         },
                         "dt-cadastro": {
                           "type": "string",
                           "format": "date-time",
                           "readOnly": true,
                           "default": "@now",
-                          "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")"
+                          "x-apidog-mock": "@datetime(\"yyyy-MM-dd'T'HH:mm:ss'Z'\")",
+                          "description": "Data e hora UTC em que o cadastro do leitor foi efetivado",
+                          "example": "2026-02-15T09:00:00Z"
                         },
                         "limite-disp": {
                           "type": "integer",
                           "default": 4,
                           "minimum": 0,
                           "maximum": 4,
-                          "x-apidog-mock": "@integer(1, 5)"
+                          "x-apidog-mock": "@integer(0, 4)",
+                          "description": "Saldo de livros que o leitor ainda pode retirar simultaneamente (de 0 a 4)",
+                          "example": 3
                         }
                       },
                       "x-apidog-orders": [
@@ -4421,7 +4667,9 @@
                         "usuario-id",
                         "CPF",
                         "limite-disp",
-                        "dt-cadastro"
+                        "dt-cadastro",
+                        "nome",
+                        "email"
                       ]
                     }
                   },
@@ -4432,7 +4680,7 @@
                   "name": "CreateUsuario",
                   "displayName": "",
                   "id": "#/definitions/18340221",
-                  "description": "",
+                  "description": "Payload DTO para cadastro de novo usuário leitor na biblioteca.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4459,7 +4707,7 @@
                   "name": "UpdateUsuario",
                   "displayName": "",
                   "id": "#/definitions/18340222",
-                  "description": "",
+                  "description": "Payload DTO para atualização de dados cadastrais de usuário leitor.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4486,7 +4734,7 @@
                   "name": "UsuarioListResponse",
                   "displayName": "",
                   "id": "#/definitions/18342375",
-                  "description": "",
+                  "description": "Envelope de resposta paginada para listagem de usuários leitores.",
                   "schema": {
                     "jsonSchema": {
                       "type": "object",
@@ -4495,10 +4743,12 @@
                           "type": "array",
                           "items": {
                             "$ref": "#/definitions/18340002"
-                          }
+                          },
+                          "description": "Lista de registros da coleção retornados para a página solicitada"
                         },
                         "meta": {
-                          "$ref": "#/definitions/18339903"
+                          "$ref": "#/definitions/18339903",
+                          "description": "Metadados de controle da paginação"
                         }
                       },
                       "x-apidog-orders": [
