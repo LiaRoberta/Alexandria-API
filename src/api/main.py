@@ -9,6 +9,15 @@ Configura:
 - Inclusão dos roteadores: auth, tasks, projects (com selectinload) e users
 """
 
+import sys
+from pathlib import Path
+
+# Adiciona a raiz do projeto ao sys.path para garantir resolução de `src`
+# em qualquer modo de inicialização (direta via script, IDE ou módulo)
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 from fastapi import FastAPI
@@ -82,3 +91,9 @@ def health_check():
         "database": "sqlite",
         "standard": "RFC 9457 Problem Details",
     }
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("src.api.main:app", host="127.0.0.1", port=8000, reload=True)
