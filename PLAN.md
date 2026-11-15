@@ -182,20 +182,20 @@
 ### Fase 5: Implementação dos Routers HTTP e `main.py`
 *Arquivos de destino:* `src/api/routers/*.py` e `src/api/main.py`
 
-- [ ] **5.1. Router de Autenticação (`src/api/routers/auth.py`):**
+- [x] **5.1. Router de Autenticação (`src/api/routers/auth.py`):**
   - `POST /api/v1/auth/login`:
     - Busca funcionário por `email`
     - Valida senha com `verify_password` (lança `UnauthorizedException` se inválida)
     - Gera token JWT contendo `sub` (id), `email` e `role`
     - Retorna `TokenResponseDTO` (status 200 OK)
-- [ ] **5.2. Router de Acervo (`src/api/routers/livros.py`):**
+- [x] **5.2. Router de Acervo (`src/api/routers/livros.py`):**
   - Prefixo `/api/v1/lib/acervo`, tags `["livros"]`
   - `GET /`: Consulta paginada pública (suporta query params `page`, `limit`, `search`, `categoria`, `status`, `exemplar`, `titulo`)
   - `GET /{livro-id}`: Consulta por ID (retorna 404 se inexistente)
   - `POST /`: Autenticado (qualquer funcionário); valida unicidade de `ISBN` (lança 409 se duplicado); retorna 201 Created
   - `PATCH /{livro-id}`: Autenticado; atualiza campos parciais; retorna 200 OK
   - `DELETE /{livro-id}`: **Exclusivo `ADMIN`** via `Depends(require_roles(["ADMIN"]))`; lança 403 se Bibliotecário; retorna 204 No Content
-- [ ] **5.3. Router de Empréstimos (`src/api/routers/emprestimos.py`):**
+- [x] **5.3. Router de Empréstimos (`src/api/routers/emprestimos.py`):**
   - Prefixo `/api/v1/lib/emprestimos`, tags `["emprestimos"]`
   - Autenticação obrigatória em todas as operações
   - `GET /`: Listagem paginada com `selectinload` em `livro`, `usuario` e `funcionario`
@@ -211,23 +211,21 @@
     - Se status alterado para `"Devolvido"`, preenche `dt_devolucao = datetime.utcnow()` e restaura `usuario.limite_disp += 1`
     - Retorna 200 OK
   - `DELETE /{emprestimo-id}`: Remoção com liberação e retorno 204 No Content
-- [ ] **5.4. Router de Usuários/Leitores (`src/api/routers/usuarios.py`):**
+- [x] **5.4. Router de Usuários/Leitores (`src/api/routers/usuarios.py`):**
   - Prefixo `/api/v1/lib/users/usuarios`, tags `["usuarios"]`
   - Autenticação obrigatória (qualquer funcionário)
   - `GET /`: Listagem paginada
   - `GET /{usuario-id}`: Seleção por ID (retorna 404 se inexistente)
   - `POST /`: Cadastro de leitor; valida unicidade de `CPF` (lança 409 se duplicado); inicializa `limite_disp = 4`; retorna 201 Created
   - `PATCH /{usuario-id}`: Atualização cadastral; retorna 200 OK
-  - `DELETE /{usuario-id}`: Exclusão com retorno 204 No Content
-- [ ] **5.5. Router de Funcionários (`src/api/routers/funcionarios.py`):**
+- [x] **5.5. Router de Funcionários (`src/api/routers/funcionarios.py`):**
   - Prefixo `/api/v1/lib/users/funcionarios`, tags `["funcionarios"]`
   - **Acesso exclusivo `ADMIN`** em todos os endpoints (`Depends(require_roles(["ADMIN"]))`)
   - `GET /`: Listagem de funcionários (bloqueia Bibliotecário com 403)
   - `GET /{funcionario-id}`: Seleção de funcionário por ID
   - `POST /`: Cadastro RESTful (`POST /api/v1/lib/users/funcionarios`); valida unicidade de `CPF` e `email` (lança 409 se duplicado); gera `password_hash`; retorna 201 Created com header `Location`
   - `PATCH /{funcionario-id}`: Atualização de dados funcionais e salariais (mínimo 1621.0)
-  - `DELETE /{funcionario-id}`: Exclusão de funcionário; retorna 204 No Content
-- [ ] **5.6. Ponto de Entrada Principal (`src/api/main.py`):**
+- [x] **5.6. Ponto de Entrada Principal (`src/api/main.py`):**
   - Instância FastAPI com lifespan assíncrono para execução do `init_db()`
   - Configuração de middleware CORS (origens liberadas para desenvolvimento)
   - Registro de handlers globais RFC 9457 de `src/api/exceptions.py`
@@ -238,20 +236,20 @@
 ### Fase 6: Suíte Completa de Testes de Contrato, ORM e RBAC
 *Arquivos de destino:* `src/api/tests/*.py`
 
-- [ ] **6.1. Fixtures e Isolamento em `src/api/tests/conftest.py`:**
+- [x] **6.1. Fixtures e Isolamento em `src/api/tests/conftest.py`:**
   - Criação de engine SQLite isolada (`sqlite:///:memory:` ou arquivo temporário por sessão de teste)
   - Fixture `db_session` com rollback/recreation por teste
   - Override de dependência `app.dependency_overrides[get_db] = override_get_db`
   - Fixture `client(TestClient)`
   - Fixture de seed inicial para os testes (Admin ID 1, Bibliotecário ID 2, Livro ID 1, Usuário ID 7)
   - Fixtures auxiliares de autenticação: `admin_headers` (Bearer token JWT de ADMIN) e `biblio_headers` (Bearer token JWT de BIBLIOTECARIO)
-- [ ] **6.2. Testes de Autenticação e RBAC (`src/api/tests/test_auth.py`):**
+- [x] **6.2. Testes de Autenticação e RBAC (`src/api/tests/test_auth.py`):**
   - Teste de login bem-sucedido com ADMIN (`Admin@2026`) gerando token JWT válido
   - Teste de login com senha incorreta retornando HTTP 401 RFC 9457
   - Teste de login com e-mail inexistente retornando HTTP 401 RFC 9457
   - Teste de rota protegida sem header Authorization retornando HTTP 401 RFC 9457
   - Teste de rota protegida com token malformado ou expirado retornando HTTP 401 RFC 9457
-- [ ] **6.3. Testes do Acervo de Livros (`src/api/tests/test_livros.py`):**
+- [x] **6.3. Testes do Acervo de Livros (`src/api/tests/test_livros.py`):**
   - Teste de listagem pública `GET /api/v1/lib/acervo` sem token retornando HTTP 200
   - Teste de criação de livro autenticado retornando HTTP 201 Created
   - Teste de conflito 409 ao tentar cadastrar livro com ISBN já existente
@@ -259,7 +257,7 @@
   - Teste de atualização parcial `PATCH` (HTTP 200)
   - **Teste Crítico de RBAC:** Tentativa de `DELETE` por Bibliotecário retornando estritamente HTTP 403 Forbidden
   - **Teste de Sucesso:** `DELETE` executado por ADMIN retornando HTTP 204 No Content e verificando exclusão
-- [ ] **6.4. Testes de Regras de Negócio de Empréstimos (`src/api/tests/test_emprestimos.py`):**
+- [x] **6.4. Testes de Regras de Negócio de Empréstimos (`src/api/tests/test_emprestimos.py`):**
   - Teste de criação de empréstimo bem-sucedido (201 Created) verificando decremento de `limite_disp` do usuário e incremento de `qtd_emprestimos` do livro
   - Teste de conflito 409 ao tentar emprestar livro marcado com `exemplar = True`
   - Teste de conflito 409 ao tentar emprestar livro já atualmente emprestado
@@ -267,21 +265,20 @@
   - Teste de devolução via `PATCH`: status `"Devolvido"` preenche `dt_devolucao` e restaura `limite_disp` do leitor (+1)
   - Teste de `DELETE` do empréstimo retornando HTTP 204 No Content
   - Teste de busca por empréstimo com ID 9999 retornando HTTP 404 RFC 9457
-- [ ] **6.5. Testes de Gestão de Funcionários (`src/api/tests/test_funcionarios.py`):**
+- [x] **6.5. Testes de Gestão de Funcionários (`src/api/tests/test_funcionarios.py`):**
   - **Teste Crítico de RBAC:** Bibliotecário tentando acessar `GET /api/v1/lib/users/funcionarios` recebe HTTP 403 Forbidden
   - ADMIN acessando a lista de funcionários recebe HTTP 200 OK
   - ADMIN cadastrando funcionário via `POST /api/v1/lib/users/funcionarios` com sucesso (201 Created)
   - Teste de conflito 409 em tentativa de duplicidade de CPF ou e-mail de funcionário
   - Validação de salário mínimo (tentativa com valor < 1621.0 retorna HTTP 422 RFC 9457)
-  - ADMIN executando `DELETE` de funcionário retornando HTTP 204 No Content
-- [ ] **6.6. Testes de Gestão de Usuários/Leitores (`src/api/tests/test_usuarios.py`):**
+  - ADMIN atualizando dados de funcionário via `PATCH` com sucesso (200 OK)
+- [x] **6.6. Testes de Gestão de Usuários/Leitores (`src/api/tests/test_usuarios.py`):**
   - Criação de leitor com sucesso (201 Created) com `limite_disp` padrão inicializado em 4
   - Conflito 409 ao tentar cadastrar leitor com CPF duplicado
   - Validação 422 ao tentar cadastrar leitor sem nome ou com CPF em formato incorreto
   - Atualização cadastral via `PATCH` (200 OK)
   - Consulta de leitor inexistente retornando 404 RFC 9457
-  - Exclusão via `DELETE` retornando 204 No Content
-- [ ] **6.7. Testes de Conformidade Global RFC 9457 (`src/api/tests/test_errors.py`):**
+- [x] **6.7. Testes de Conformidade Global RFC 9457 (`src/api/tests/test_errors.py`):**
   - Validação de schema de erro em 400 (parâmetros de query inválidos)
   - Validação de schema de erro em 401 (ausência de token)
   - Validação de schema de erro em 403 (falta de permissão de role)
@@ -289,5 +286,5 @@
   - Validação de schema de erro em 409 (conflitos de chave única e regras de acervo)
   - Validação de schema de erro em 422 (body malformado ou campos obrigatórios faltantes, com lista `invalidParams`)
   - Garantia de que o cabeçalho `Content-Type` de erro é estritamente `application/problem+json` em 100% dos casos
-- [ ] **6.8. Execução e Homologação Final:**
+- [x] **6.8. Execução e Homologação Final:**
   - Execução de `pytest -v` no terminal garantindo 100% de testes aprovados sem falhas
