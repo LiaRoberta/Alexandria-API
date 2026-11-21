@@ -10,9 +10,9 @@ from typing import AsyncGenerator
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.database import init_db
-from api.exceptions import register_exception_handlers
-from api.routers import auth, emprestimos, funcionarios, livros, usuarios
+from database import init_db
+from exceptions import register_exception_handlers
+from routers import auth, emprestimos, funcionarios, livros, usuarios
 
 
 @asynccontextmanager

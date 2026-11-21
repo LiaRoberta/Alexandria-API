@@ -10,10 +10,10 @@ from fastapi import APIRouter, Depends, Path, Query, Response, status
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from api.database import get_db
-from api.exceptions import ConflictException, NotFoundException
-from api.models import FuncionarioModel, LivroModel
-from api.schemas import (
+from database import get_db
+from exceptions import ConflictException, NotFoundException
+from models import FuncionarioModel, LivroModel
+from schemas import (
     CategoriaLivro,
     CreateLivroDTO,
     Livro,
@@ -22,7 +22,7 @@ from api.schemas import (
     StatusLivro,
     UpdateLivroDTO,
 )
-from api.security import get_current_user, require_roles
+from security import get_current_user, require_roles
 
 router = APIRouter(
     prefix="/api/v1/lib/acervo",
@@ -143,7 +143,7 @@ def adicionar_livro(
         qtd_emprestimos=0,
     )
     db.add(novo_livro)
-    db.commit()
+    db.commit() #
     db.refresh(novo_livro)
 
     response.headers["Location"] = f"/api/v1/lib/acervo/{novo_livro.id}"

@@ -11,10 +11,10 @@ from fastapi import APIRouter, Depends, Path, Query, Response, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
-from api.database import get_db
-from api.exceptions import ConflictException, NotFoundException, ValidationException
-from api.models import EmprestimoModel, FuncionarioModel, LivroModel, UsuarioModel
-from api.schemas import (
+from database import get_db
+from exceptions import ConflictException, NotFoundException, ValidationException
+from models import EmprestimoModel, FuncionarioModel, LivroModel, UsuarioModel
+from schemas import (
     CreateEmprestimoDTO,
     Emprestimo,
     EmprestimoListResponse,
@@ -22,7 +22,7 @@ from api.schemas import (
     StatusEmprestimo,
     UpdateEmprestimoDTO,
 )
-from api.security import get_current_user
+from security import get_current_user
 
 router = APIRouter(
     prefix="/api/v1/lib/emprestimos",

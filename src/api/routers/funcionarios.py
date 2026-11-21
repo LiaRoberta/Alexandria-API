@@ -11,17 +11,17 @@ from fastapi import APIRouter, Depends, Path, Query, Response, status
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from api.database import get_db
-from api.exceptions import ConflictException, NotFoundException, ValidationException
-from api.models import FuncionarioModel
-from api.schemas import (
+from database import get_db
+from exceptions import ConflictException, NotFoundException, ValidationException
+from models import FuncionarioModel
+from schemas import (
     CreateFuncionarioDTO,
     Funcionario,
     FuncionarioListResponse,
     PageMeta,
     UpdateFuncionarioDTO,
 )
-from api.security import hash_password, require_roles
+from security import hash_password, require_roles
 
 router = APIRouter(
     prefix="/api/v1/lib/users/funcionarios",

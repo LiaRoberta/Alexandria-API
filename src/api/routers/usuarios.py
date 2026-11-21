@@ -10,17 +10,17 @@ from fastapi import APIRouter, Depends, Path, Query, Response, status
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from api.database import get_db
-from api.exceptions import ConflictException, NotFoundException
-from api.models import FuncionarioModel, UsuarioModel
-from api.schemas import (
+from database import get_db
+from exceptions import ConflictException, NotFoundException
+from models import FuncionarioModel, UsuarioModel
+from schemas import (
     CreateUsuarioDTO,
     PageMeta,
     UpdateUsuarioDTO,
     Usuario,
     UsuarioListResponse,
 )
-from api.security import get_current_user
+from security import get_current_user
 
 router = APIRouter(
     prefix="/api/v1/lib/users/usuarios",

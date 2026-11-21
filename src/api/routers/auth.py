@@ -8,11 +8,11 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from api.database import get_db
-from api.exceptions import UnauthorizedException
-from api.models import FuncionarioModel
-from api.schemas import AuthResponse, FuncionarioRole, LoginRequestDTO, TokenResponseDTO
-from api.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, verify_password
+from database import get_db
+from exceptions import UnauthorizedException
+from models import FuncionarioModel
+from schemas import AuthResponse, FuncionarioRole, LoginRequestDTO, TokenResponseDTO
+from security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, verify_password
 
 router = APIRouter(
     prefix="/api/v1/auth",

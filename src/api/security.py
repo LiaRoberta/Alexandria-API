@@ -14,9 +14,9 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from api.database import get_db
-from api.exceptions import ForbiddenException, UnauthorizedException
-from api.models import FuncionarioModel
+from database import get_db
+from exceptions import ForbiddenException, UnauthorizedException
+from models import FuncionarioModel
 
 
 # -----------------------------------------------------------------------------

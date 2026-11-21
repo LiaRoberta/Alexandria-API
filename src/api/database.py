@@ -6,18 +6,21 @@ idempotente com dados pré-configurados do Apidog e SPEC.md.
 """
 
 from datetime import date, datetime
+from pathlib import Path
 from typing import Generator
 import bcrypt
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, sessionmaker
 
-from api.models import Base, FuncionarioModel, LivroModel, UsuarioModel
+from models import Base, FuncionarioModel, LivroModel, UsuarioModel
 
 
 # -----------------------------------------------------------------------------
 # Configuração da Engine SQLite
 # -----------------------------------------------------------------------------
-DATABASE_URL = "sqlite:///./alexandria.db"
+# Caminho absoluto: sempre aponta para Alexandria-API/alexandria.db
+_BASE_DIR = Path(__file__).resolve().parent.parent.parent
+DATABASE_URL = f"sqlite:///{_BASE_DIR / 'alexandria.db'}"
 
 engine = create_engine(
     DATABASE_URL,
